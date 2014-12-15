@@ -1,0 +1,147 @@
+<form name="addinfoForm" class="about-me-form form-sm-align" id="about-me-form">
+    <div class="col-xs-12 col-md-offset-1 col-md-5">
+        <div class="form-group">
+            <label class="col-xs-12">First Name</label>
+            <div class="col-xs-10 group-margin">
+                <input class="form-control" type="text" ng-model="firstNamec">
+            </div>
+
+            <label class="col-xs-12">Date of Birth</label>
+            <div class="col-xs-3 group-margin">
+                <select class="col-xs-12 col-sm-12 col-md-12 no-col-padding" ui-select2 type="text" data-placeholder="Day" ng-model="dobDayc" id="aboutFSelectDay">
+                    <option value=""></option>
+                    <option ng-repeat="theDays in dtDays" value="{{theDays.value}}">{{theDays.text}}</option>
+                </select>
+            </div>
+            <div class="col-xs-4 group-margin">
+                <select class="col-xs-12 col-sm-12 col-md-12 no-col-padding" ui-select2 type="text" data-placeholder="Month" ng-model="dobMonthc" id="aboutFSelectMonth">
+                    <option value=""></option>
+                    <option ng-repeat="dobMonth in dtMonth" value="{{dobMonth.text}}">{{dobMonth.text}}</option>
+                </select>
+            </div>    
+            <div class="col-xs-3 group-margin">    
+                <input class="form-control" type="text" placeholder="Year" ng-model="dobYearc">
+            </div>
+
+            <label class="col-xs-12">Mobile Number</label>
+            <div class="col-xs-5 group-margin">
+                <select class="col-xs-12 col-sm-12 col-md-12 no-col-padding" ui-select2 type="text" data-placeholder="Country Code" ng-model="mobileCountryCodec" id="aboutFSelectCountrycode">
+                    <option value=""></option>
+                    <option ng-repeat="theCode in dtCountryCode" value="{{theCode.value}}">{{theCode.text}}</option>
+                </select>
+            </div>    
+
+            <div class="col-xs-5 group-margin">    
+                <input class="form-control" type="text" placeholder="Enter your mobile no" ng-model="mobileNoc">
+            </div>
+
+            <label class="col-xs-12">Email</label>
+            <div class="col-xs-10 group-margin">
+                <input class="form-control" type="text" placeholder="Enter your email" ng-model="emailc">
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="col-xs-12 col-md-5">
+        <div class="form-group">
+            <label class="col-xs-12">Last Name</label>
+            <div class="col-xs-10 group-margin">
+                <input class="form-control" type="text" ng-model="lastNamec">
+            </div>
+
+            <label class="col-xs-12">Gender</label>
+            <div class="col-xs-12 group-margin">
+                <input name="genderCheckbox[1][]" type="checkbox" id="checkBoxMale"><label>Male</label>
+                <input name="genderCheckbox[1][]" type="checkbox" id="checkBoxFemale" value="Female"><label>Female</label>
+            </div>
+            
+            <label class="col-xs-12">Other Phone Number</label>
+            <div class="col-xs-5 group-margin">
+            <select class="col-xs-12 col-sm-12 col-md-12 no-col-padding" ui-select2 type="text" data-placeholder="Country Code" ng-model="phoneCountryCodec" id="aboutFSelectPCountrycode">
+                <option value=""></option>
+                <option ng-repeat="theCode in dtCountryCode" value="{{theCode.value}}">{{theCode.text}}</option>
+            </select>
+            </div>
+            
+            <div class="col-xs-2 group-margin">
+            <input class="form-control" type="text" placeholder="Area" ng-model="phoneAreaCodec">
+            </div>
+            
+            <div class="col-xs-3 group-margin">
+            <input class="form-control" type="text" placeholder="Phone No" ng-model="phonec">
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xs-12 col-md-12 no-col-padding aboutAddr">
+        <div class="col-xs-12 col-md-offset-1 col-md-5 form-group">
+            <label class="col-xs-12">Adress Line 1</label>
+            <div class="col-xs-10 group-margin">
+                <input class="col-xs-10 form-control" type="text" ng-model="addrLineOnec">
+            </div>
+            <label class="col-xs-12">City</label>
+            <div class="col-xs-10 group-margin">
+                <input class="col-xs-10 form-control" type="text" ng-model="cityc">
+            </div>
+            <label class="col-xs-12">Country</label>
+            <div class="col-xs-10 group-margin">
+                <select class="col-xs-12 col-sm-12 col-md-12 no-col-padding" ui-select2 type="text" data-placeholder="Country" ng-model="countryNamec" id="aboutFSelectCountryName">
+                    <option value=""></option>
+                    <option ng-repeat="theCountry in dtCountry" value="{{theCountry.name}}">{{theCountry.name}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-5 form-group">
+            <label class="col-xs-12">Adress Line 2</label>
+            <div class="col-xs-10 group-margin">
+                <input class="col-xs-10 form-control" type="text" ng-model="addrLineTwo">
+            </div>
+
+            <label class="col-xs-12">Postal Code</label>
+            <div class="col-xs-10 group-margin">
+                <input class="col-xs-12 form-control" type="text" ng-model="postalCodec">
+            </div>
+
+            <label class="col-xs-12">State/Region</label>
+            <div class="col-xs-10 group-margin">
+                <input class="col-xs-12 form-control" type="text" ng-model="addrStatec">
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="col-xs-12 col-md-12 no-col-padding">
+        <div class="col-xs-12 col-md-offset-1 col-md-5 form-group">
+            <label class="col-xs-12">Nationality</label>
+            <div class="col-xs-10 group-margin">
+                <select class="col-xs-12 col-sm-12 col-md-12 no-col-padding" ui-select2 type="text" data-placeholder="Nationality" ng-model="nationalityc" id="aboutFSelectNationality">
+                    <option value=""></option>
+                    <option ng-repeat="theCountry in dtCountry" value="{{theCountry.name}}">{{theCountry.name}}</option>
+                </select>
+            </div>
+
+            <label class="col-xs-12">Identification</label>
+            <div class="col-xs-10 group-margin">
+                <select class="col-xs-12 col-sm-12 col-md-12 no-col-padding" ui-select2 type="text" data-placeholder="Identification" ng-model="idc" id="aboutFSelectIdentification">
+                    <option value=""></option>
+                    <option ng-repeat="theID in dtIdentification" value="{{theID.text}}">{{theID.text}}</option>
+                </select>
+            </div>
+
+            <label class="col-xs-12">Identification No</label>
+            <div class="col-xs-10 group-margin">
+                <input class="col-md-12 form-control" type="text" ng-model="idNoc">
+            </div>
+        </div>
+    </div>
+
+     <div class="form-group">
+        <div class="col-xs-12 col-md-offset-1 col-md-5 about-me-btn">
+            <button type="button" class="btn btn-primary" ng-click="saveNewAboutme()">Save</button>
+            <button type="button" class="btn btn-default" ng-click="cancelAboutmeEdit()">Cancel</button>
+        </div>
+    </div>
+</form>

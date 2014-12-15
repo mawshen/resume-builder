@@ -1,0 +1,128 @@
+<form name="expCreator" class="form-horizontal form-sm-align">
+    <div class="form-group">
+        <label class="col-xs-12 col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Position</label>
+        <div class="col-xs-8 col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+            <input class="form-control" id="inputPosition" type="text" placeholder="Enter your Position" ng-model="positionc" >
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left" >Company</label>
+        <div class="col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+            <input class="form-control" id="inputCompany" type="text" placeholder="Enter your Company" ng-model="companyc" >
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Joined Duration</label>
+
+        <div class="col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+            <select class="col-xs-5 col-sm-4 col-md-2 no-col-padding" type="text" placeholder="Month" ng-model="startMonthc" id="expSelectSM">
+                <option></option>
+                <option ng-repeat="theMonth in month" value="{{theMonth.text}}">{{theMonth.text}}</option>
+            </select>
+
+            <div class="col-xs-6 col-sm-4 col-md-2">
+                <input class="form-control" id="inputStartYear" placeholder="Year" type="text" ng-model="startYearc">
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-1 expFTo">
+                <span>To</span>
+            </div>
+
+            <select class="col-xs-5 col-sm-4 col-md-2 no-col-padding" type="text" data-placeholder="Month" ng-model="endMonthc" id="expSelectEM">
+                <option></option>
+                <option ng-repeat="theMonth in month" value="{{theMonth.text}}">{{theMonth.text}}</option>
+            </select>
+
+            <div class="col-xs-6 col-sm-4 col-md-2">
+                <input class="form-control" id="inputEndYear" placeholder="Year" type="text" ng-model="endYearc">
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-2 expFCheckbox">
+                <input type="checkbox" id="checkboxPresent"><label>Present</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Specialization</label>
+        <div class="col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+            <select class="col-xs-12 col-sm-12 col-md-12 no-col-padding" type="text" placeholder="Choose your specialization" ng-model="specializationc" id="expSelectS">
+                <option></option>
+                <optgroup ng-repeat="theSpec in dtSpec" label="{{theSpec.text}}">
+                    <option ng-repeat="theChildren in theSpec.children" value="{{theChildren.text}}">{{theChildren.text}}</option>
+                </optgroup>
+            </select>
+        </div>
+    </div>
+<!--
+    <div class="col-sm-offset-4 col-xs-8 col-sm-8 col-md-offset-6 col-md-6 form-section-align-right visible-xs">
+        <button type="button" class="btn btn-default btn-xs" id="btnExp-tooltip" title="" data-placement="right" data-toggle="tooltip" data-original-title="Expand for more" data-delay="5" ng-click='expandExpEditor()'>...</button>
+    </div>-->
+
+    <div id="experience-expander">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Location</label>
+            <div class="col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+                <input class="form-control" id="inputLocation" placeholder="Enter your company location" type="text" ng-model="locationc">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Industry</label>
+            <div class="col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+                <select class="col-xs-12 col-sm-12 col-md-12 no-col-padding" type="text" data-placeholder="Choose your industry" ng-model="industryc" id="expSelectIn">
+                    <option></option>
+                    <option ng-repeat="theIndustry in dtIndustry" value="{{theIndustry.text}}">{{theIndustry.text}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">    
+            <label class="col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Position Level</label>
+            <div class="col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+                <select class="col-xs-12 col-sm-12 col-md-12 no-col-padding" type="text" data-placeholder="Choose your position" ng-model="pLevelc" id="expSelectPLvl">
+                    <option></option>
+                    <option ng-repeat="theLevel in dtLevel" value="{{theLevel.text}}">{{theLevel.text}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">      
+            <label class="col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Monthly Salary</label>
+            <div class="col-xs-3 col-sm-3 col-md-2 form-section-align-right">
+                <select class="col-xs-12 col-sm-12 col-md-12 no-col-padding" type="text" data-placeholder="Currency" ng-model="currencyc" id="expSelectC">
+                    <option></option>
+                    <option ng-repeat="theCurrency in dtCurrency" value="{{theCurrency.id}}">{{theCurrency.text}}</option>
+                </select>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <select class="col-xs-12 col-sm-12  col-md-12 no-col-padding" data-placeholder="Salary" ng-model="salaryc" id="expSelectSal">
+                    <option></option>
+                    <option ng-repeat="theSalary in dtSalary" value="{{theSalary.text}}">{{theSalary.text}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">     
+            <label class="col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Achievements</label>
+            <div class="col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+                <textarea rows="8" cols="50" class="form-control" id="textareaAchievement" placeholder="Enter less than 3500 words" ng-model="achievementc"></textarea>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-12 col-md-12 margin-form-button">
+            <button type="button" class="btn btn-primary" ng-click="addNewExperience()" ng-hide="isEdit == true">Save</button>
+            <button type="button" class="btn btn-primary" ng-click="changeExp()" ng-show="isEdit == true">Save</button>
+            <button type="button" class="btn btn-default" ng-click="cancelExpEdit();
+                resetBtn()">Cancel</button>
+            <span class ="delLink" >
+                <a class="" href="" ng-show="delSwitch == true" ng-click="deleteExp()">Delete</a>
+            </span>
+        </div>
+    </div>
+</form>

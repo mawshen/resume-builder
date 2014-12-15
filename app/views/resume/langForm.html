@@ -1,0 +1,26 @@
+<form name="langCreator" class="form-horizontal form-skill-align">
+    <div class="form-group">
+        <label class="col-sm-1 lang-col visible-sm visible-md visible-lg no-paddingright">Primary</label>
+        <label class="col-sm-3 lang-col visible-sm visible-md visible-lg">Language</label>
+        <label class="col-sm-1 lang-col visible-sm visible-md visible-lg">Spoken</label>
+        <label class="col-sm-1 lang-col visible-sm visible-md visible-lg">Written</label>
+        <label class="col-sm-3 lang-col visible-sm visible-md visible-lg">Relevant Certificates</label>
+        <label class="col-sm-2 lang-col resultLblSwitch visible-sm visible-md visible-lg">Result</label>
+    </div>
+
+    <div id="insertNewLang" >
+
+    </div>
+    
+    <div class="form-group">
+            <span class="col-xs-12 addLang"><a href="" ng-hide="langLimit==true" ng-click="addNewLang()"><span class="icon-plus-circle"></span>Add Language</a></span>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-xs-12">
+            <button type="button" class="btn btn-primary" ng-click="saveLang()">Save</button>
+            <button type="button" class="btn btn-default" ng-click="cancelLangEdit()">Cancel</button>
+        </div>
+    </div>
+</form>
+

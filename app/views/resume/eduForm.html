@@ -1,0 +1,98 @@
+<form name="eduCreator" class="form-horizontal form-sm-align" >
+    <div class="form-group">
+        <label class="col-xs-12 col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Institute/University</label>
+        <div class="col-xs-8 col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+            <input class="form-control" id="inputUniversity" placeholder="Enter your University" ng-model="universityc">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-xs-12 col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Graduation Date</label>
+        <div class="col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+            <select class="col-xs-5 col-sm-4 col-md-3 no-col-padding" type="text" data-placeholder="Month" ng-model="gradMonthc" id="eduSelectM">
+                <option value=""></option>
+                <option ng-repeat="theMonth in month" value="{{theMonth.text}}">{{theMonth.text}}</option>
+            </select>
+
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                <input class="form-control" id="inputYear" type="text" ng-model="gradYearc">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-xs-12 col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Qualification</label>
+        <div class="col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+            <select class="col-xs-12 col-sm-12 col-md-12 no-col-padding" type="text" data-placeholder="Choose your qualification" ng-model="qualificationc" id="eduSelectEL">
+                <option value=""></option>
+                <option ng-repeat="theEdu in dtEduLevel" value="{{theEdu.text}}">{{theEdu.text}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-xs-12 col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Field of Study</label>
+        <div class="col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+            <select class="col-xs-12 col-sm-12 col-md-12 no-col-padding" type="text" data-placeholder="Choose your field" ng-model="fieldofstudyc" id="eduSelectFS">
+                <option value=""></option>
+                <optgroup ng-repeat="studyField in dtFieldStudy" label="{{studyField.text}}">
+                    <option ng-repeat="theChildren in studyField.children" value="{{theChildren.text}}">{{theChildren.text}}</option>
+                </optgroup>
+            </select>
+        </div>
+    </div>
+
+
+    <!--    <div class="btnh visible-xs">
+            <button type="button" class="btn btn-default btn-xs" id="btnEdu-tooltip" title="" data-placement="right" data-toggle="tooltip" data-original-title="Expand for more" data-delay="5" ng-click='expandEduEditor()'>...</button>
+        </div>-->
+
+    <div id="education-expander">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Major</label>
+            <div class="col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+                <input class="form-control" placeholder="Enter your course major" id="inputMajor" type="text" ng-model="majorc">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-12 col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Grade</label>
+            <div class="col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+                <select class="col-xs-12 col-sm-12 col-md-12 no-col-padding" ng-model="gradec" type="text" data-placeholder="Choose your grade" id="eduSelectG">
+                    <option value=""></option>
+                    <option ng-repeat="theGrade in dtGrade" value="{{theGrade.text}}">{{theGrade.text}}</option>
+                </select>
+            </div>  
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-12 col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Institute/University Location</label>
+            <div class="col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+                <select class="col-xs-12 col-sm-12 col-md-12 no-col-padding" ng-model="universitylocationc" type="text" data-placeholder="Universiti Location" id="eduSelectUL">
+                    <option value=""></option>
+                    <option ng-repeat="theULocation in dtULocation" value="{{theULocation.name}}">{{theULocation.name}}</option>
+                </select>
+            </div> 
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Additional Information</label>
+            <div class="col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+                <textarea rows="8" cols="50" class="form-control" id="textareaAI" placeholder="Enter less than 3500 words" ng-model="addinformationc"></textarea>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-12 col-md-12 margin-form-button">
+            <button type="button" class="btn btn-primary" ng-click="addNewEducation()" ng-hide="isEdit == true">Save</button>
+            <button type="button" class="btn btn-primary" ng-click="changeEdu()" ng-show="isEdit == true">Save</button>
+            <button type="button" class="btn btn-default" ng-click="cancelEduEdit();
+            resetBtn()">Cancel</button>
+            <span class ="delLink">
+                <a class="" href="" ng-show="delSwitch == true" ng-click="deleteEdu()">Delete</a>
+            </span>
+        </div>
+    </div>
+</form>

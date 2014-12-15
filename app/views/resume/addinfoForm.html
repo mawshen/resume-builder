@@ -1,0 +1,56 @@
+<form name="addinfoForm" class="form-horizontal form-sm-align">
+    <div class="form-group">
+        <label class="col-xs-12 col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Expected Monthly Salary</label>
+        <div class="col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+            <select class="col-xs-5 col-sm-4 col-md-3 no-col-padding" ui-select2 type="text" data-placeholder="Currency" ng-model="salaryCurrencyc" id="expectedCSelect">
+                <option value=""></option>
+                <option ng-repeat="theCurrency in dtCurrency" value="{{theCurrency.text}}">{{theCurrency.text}}</option>
+            </select>
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                <input class="form-control" type="text" ng-model="expectedSalaryc">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Preferred Work Location</label>
+        <div class="col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+            <select class="col-xs-12 col-sm-12 col-md-12 no-col-padding margin-select" ui-select2 type="text" data-placeholder="- Select First Preferred Location -" ng-model="pLocationOnec" id="aInfoSelectOne">
+                <option value=""></option>
+                <option ng-repeat="pLocationOne in dtWorkLocation" value="{{pLocationOne.text}}">{{pLocationOne.text}}</option>
+            </select>
+
+            <select  class="col-xs-12 col-sm-12 col-md-12 no-col-padding margin-select" ui-select2 type="text" data-placeholder="- Select Second Preferred Location (Optional) -" ng-model="pLocationTwoc" id="aInfoSelectTwo">
+                <option value=""></option>
+                <option ng-repeat="pLocationTwo in dtWorkLocation" value="{{pLocationTwo.text}}">{{pLocationTwo.text}}</option>
+            </select>
+
+            <select  class="col-xs-12 col-sm-12 col-md-12 no-col-padding margin-select" ui-select2 type="text" data-placeholder="- Select Third Preferred Location (Optional) -" ng-model="pLocationThreec" id="aInfoSelectThree">
+                <option value=""></option>
+                <option ng-repeat="pLocationThree in dtWorkLocation" value="{{pLocationThree.text}}">{{pLocationThree.text}}</option>
+            </select>
+
+
+            <div class="col-xs-12 col-sm-12 col-md-12 expFCheckbox">
+                <label><input type="checkbox" id="overSeac">I want to work in any Overseas location</label>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-12 col-md-3 control-label form-section-align-left">Other Information</label>
+        <div class="col-xs-8 col-sm-8 col-md-6 form-section-align-right">
+            <textarea rows="8" cols="50" class="form-control" placeholder="Enter your academic details and achievements here. Example: courses and subjects taken, extra-curricular activities, projects, details of thesis, awards/prizes won, etc." ng-model="otherinfoc"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-12 col-md-12 margin-form-button">
+            <button type="button" class="btn btn-primary" ng-click="addNewAddinfo()">Save</button>
+            <button type="button" class="btn btn-default" ng-click="cancelAddinfoEdit();">Cancel</button>
+        </div>
+    </div>
+
+</form>

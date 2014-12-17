@@ -8,6 +8,12 @@
 		</div>
 	@endif
 
+	@if (isset($aboutArray))
+		<h1>About Me start</h1>
+		<pre>{{var_dump($aboutArray)}}</pre>
+		<h1>About Me end</h1>
+	@endif
+	
 	@if (isset($friendArray))
 		<h1>Friend start</h1>
 		<pre>{{var_dump($friendArray)}}</pre>

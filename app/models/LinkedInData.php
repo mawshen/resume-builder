@@ -1,8 +1,64 @@
 <?php
 	//model to filter data after get returned data from linked-in
-	class Friend extends Eloquent{
+	class linkedInData extends Eloquent{
 
-		public static function filter($linkedin){
+		//the function to set user's personal info
+		public static function aboutFilter($linkedin){
+			
+			//initialize the about me fields
+			$aboutArray=array();
+			$dob=null;
+			$mobileNo = null;
+			$otherNo = null;
+			$email = null;
+			$address = null;
+			$first_name = $last_name = '';
+			
+			if(isset($linkedin->dateOfBirth)) {
+				$dob = $linkedin->dateOfBirth;
+				$dob = $dob->day.'/'.$dob->month.'/'.$dob->year;
+			}
+
+			if(isset($linkedin->phoneNumbers)) {
+				if ($linkedin->phoneNumbers->_total>0){
+					foreach($linkedin->phoneNumbers->values as $phone) {
+						if($phone->phoneType = 'mobile') {
+							$mobileNo = $phone->phoneNumber;
+						} else {
+							$otherNo = $phone->phoneNumber;
+						}
+					}
+				}
+			}
+
+			if(isset($linkedin->emailAddress)) {
+				$email = $linkedin->emailAddress;
+			}
+
+			if(isset($linkedin->mainAddress)) {
+				$address = $linkedin->mainAddress;
+			}
+
+			if(isset($linkedin->firstName)) {
+				$first_name = $linkedin->firstName;
+			}
+	
+			if(isset($linkedin->lastName)) {
+				$last_name = $linkedin->lastName;
+			}
+
+			//push into an array
+			array_push($aboutArray, array("firstName"=>$first_name, "lastName"=>$last_name
+									,"dob"=>$dob, "mobileNo"=>$mobileNo, "otherNo"=>$otherNo
+									, "email"=>$email, "address"=>$address)
+			);
+
+			//return the about me
+			return $aboutArray;
+		}
+		
+		//the function to set friend's data
+		public static function friendFilter($linkedin){
 			
 			//initialize the friend array
 			$friendArray=array();

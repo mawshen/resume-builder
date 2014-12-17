@@ -22,8 +22,9 @@
 		$friendArray = Session::get('friendArray');
 		$aboutArray = Session::get('aboutArray');
 		$eduArray = Session::get('eduArray');
+		$expArray = Session::get('expArray');
 		return View::make('user')->with('data', $data)->with('friendArray',$friendArray)
-				->with('aboutArray',$aboutArray)->with('eduArray',$eduArray);
+				->with('aboutArray',$aboutArray)->with('eduArray',$eduArray)->with('expArray',$expArray);
 	});
 
 	//Route::get('login',array('as'=>'login', 'uses'=>'LoginController@login'));
@@ -48,17 +49,19 @@
 					$context = stream_context_create(array('http' => array('method' => 'GET')));
 					$response = file_get_contents($url, false, $context);
 					$data = json_decode($response);
-					//var_dump($data->connections);
-					
+
+					//filter the data retrieved from linkedin 
 					$linkedInData = new linkedInData();
 					$friendArray = linkedInData::friendFilter($data);
 					$aboutArray = linkedInData::aboutFilter($data);
 					$eduArray = linkedInData::educationFilter($data);
+					$expArray = linkedInData::experienceFilter($data);
 
 					return Redirect::to('/')->with('data',$data)
 					->with('friendArray',$friendArray)
 					->with('aboutArray',$aboutArray)
-					->with('eduArray',$eduArray);
+					->with('eduArray',$eduArray)
+					->with('expArray',$expArray);
 					
 				} catch (Exception $e) {
 					return 'Unable to get user details';

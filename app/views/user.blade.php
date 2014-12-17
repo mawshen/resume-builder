@@ -20,6 +20,12 @@
 		<h1>Education end</h1>
 	@endif
 	
+	@if (isset($expArray))
+		<h1>Experience start</h1>
+		<pre>{{var_dump($expArray)}}</pre>
+		<h1>Experience end</h1>
+	@endif
+	
 	@if (isset($friendArray))
 		<h1>Friend start</h1>
 		<pre>{{var_dump($friendArray)}}</pre>

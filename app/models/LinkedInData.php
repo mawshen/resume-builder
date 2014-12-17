@@ -7,12 +7,7 @@
 			
 			//initialize the about me fields
 			$aboutArray=array();
-			$dob=null;
-			$mobileNo = null;
-			$otherNo = null;
-			$email = null;
-			$address = null;
-			$first_name = $last_name = '';
+			$dob = $mobileNo = $otherNo =$email = $address = $first_name = $last_name = null;
 			
 			if(isset($linkedin->dateOfBirth)) {
 				$dob = $linkedin->dateOfBirth;
@@ -62,11 +57,14 @@
 			
 			//initialize the education fields
 			$eduArray=array();
-			$schName =  $end_date = $qualification = $location = $field_of_study = $desc = null;
+			
 			
 			if(isset($linkedin->educations)) {
 			
 				foreach($linkedin->educations->values as $edu) {
+					
+					//initialize the education fields
+					$schName =  $end_date = $qualification = $location = $field_of_study = $desc = null;
 					
 					if(isset($edu->schoolName)) {
 						$schName = $edu->schoolName;
@@ -99,6 +97,82 @@
 			return $eduArray;
 		}
 		
+		//the function to set user's experience info
+		public static function experienceFilter($linkedin){
+			
+			//initialize the experience fields
+			$expArray=array();
+			
+			//this is the function to get specialization code and name from js api
+			function get_specialization($position){
+				$app_key="myjslocalid";
+				$position=urlencode($position);
+				$url="http://api.sand.jobstreet.com:80/v/recommendations/specializations-roles-for-position-title?position_title=".$position.
+				"&api_key=".$app_key;
+				
+				$specialization = file_get_contents($url);
+				if ($specialization){
+					//convert string to json
+					$specialization=json_decode($specialization);
+					print "<br>Specialization code is  ";
+					print ($specialization->data[0]->specialization->code);
+					print "<br>Specialization name is  ";
+					print ($specialization->data[0]->specialization->name);
+					
+					return $specialization->data[0]->specialization;
+
+				}else{
+					return null;
+				}
+			}
+
+			if(isset($linkedin->positions)) {
+				foreach($linkedin->positions->values as $exp) {
+					
+					//initialize the experience year
+					$position = $company = $location = $duration = $industry = $summary = null;
+					
+					if(isset($exp->title)) {
+						$position = $exp->title;
+						
+						//tommy added here to retrieve specialization code and name from js api
+						$specialization=get_specialization($position);
+					}
+					$duration = $exp->startDate->month.'/'.$exp->startDate->year;
+					if(isset($exp->endDate)) {
+						$duration .= ' - '.$exp->endDate->month.'/'.$exp->endDate->year;
+					} elseif(isset($exp->isCurrent)) {
+						$duration .= ' - Present';
+					}
+					if(isset($exp->company)) {
+						$company = $exp->company->name;
+					}
+					if(isset($linkedin->location)) {
+						$location = $linkedin->location->name;
+					}
+					
+					if(isset( $exp->company->industry)) {
+						$industry = $exp->company->industry;
+					} elseif(isset($linkedin->industry)) {
+						$industry = $linkedin->industry;
+					}
+				
+					if(isset($exp->summary)) {
+						$summary = $exp->summary;
+					}
+					
+					//push into an array
+					array_push($expArray, array("position"=>$position, "specialization"=>$specialization
+											, "company"=>$company, "duration"=>$duration, "location"=>$location
+											, "industry"=>$industry, "summary"=>$summary)
+					);
+				}
+			}
+
+			//return the experience array
+			return $expArray;
+		}
+		
 		//the function to set friend's data
 		public static function friendFilter($linkedin){
 			
@@ -112,13 +186,7 @@
 				foreach($linkedin->connections->values as $friend) {
 
 					//initialization
-					$firstName=null;
-					$lastName=null;
-					$headline=null;
-					$industry=null;
-					$workLocation=null;
-					$picUrl=null;
-					$linkedInUrl=null;
+					$firstName = $lastName = $headline = $industry = $workLocation = $picUrl = $linkedInUrl=null;
 					
 					//assign values in return
 					if (isset($friend->id))
@@ -143,8 +211,7 @@
 											, "positionTitle"=>$headline, "industry"=>$industry 
 											, "location"=>$workLocation, "url"=>$linkedInUrl , "picUrl"=>$picUrl)
 					);
-					
-					
+
 				}
 			}
 

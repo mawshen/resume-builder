@@ -21,8 +21,9 @@
 		$data = Session::get('data');
 		$friendArray = Session::get('friendArray');
 		$aboutArray = Session::get('aboutArray');
+		$eduArray = Session::get('eduArray');
 		return View::make('user')->with('data', $data)->with('friendArray',$friendArray)
-				->with('aboutArray',$aboutArray);
+				->with('aboutArray',$aboutArray)->with('eduArray',$eduArray);
 	});
 
 	//Route::get('login',array('as'=>'login', 'uses'=>'LoginController@login'));
@@ -52,10 +53,12 @@
 					$linkedInData = new linkedInData();
 					$friendArray = linkedInData::friendFilter($data);
 					$aboutArray = linkedInData::aboutFilter($data);
+					$eduArray = linkedInData::educationFilter($data);
 
 					return Redirect::to('/')->with('data',$data)
 					->with('friendArray',$friendArray)
-					->with('aboutArray',$aboutArray);
+					->with('aboutArray',$aboutArray)
+					->with('eduArray',$eduArray);
 					
 				} catch (Exception $e) {
 					return 'Unable to get user details';

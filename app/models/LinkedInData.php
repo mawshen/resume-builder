@@ -57,6 +57,48 @@
 			return $aboutArray;
 		}
 		
+		//the function to set user's education info
+		public static function educationFilter($linkedin){
+			
+			//initialize the education fields
+			$eduArray=array();
+			$schName =  $end_date = $qualification = $location = $field_of_study = $desc = null;
+			
+			if(isset($linkedin->educations)) {
+			
+				foreach($linkedin->educations->values as $edu) {
+					
+					if(isset($edu->schoolName)) {
+						$schName = $edu->schoolName;
+					}
+					if(isset($edu->endDate)) {
+						$end_date = $edu->endDate->year;
+					}
+					if(isset($edu->degree)) {
+						$qualification = $edu->degree;
+					}
+					if(isset($linkedin->location)) {
+						$location = $linkedin->location->name;
+					}
+					if(isset($edu->fieldOfStudy)) {
+						$field_of_study = $edu->fieldOfStudy;
+					}
+					if(isset($edu->notes)) {
+						$desc = $edu->notes;
+					}
+				}
+			}
+
+			//push into an array
+			array_push($eduArray, array("schName"=>$schName, "end_date"=>$end_date
+									,"qualification"=>$qualification, "location"=>$location
+									, "field_of_study"=>$field_of_study, "desc"=>$desc)
+			);
+
+			//return the education array
+			return $eduArray;
+		}
+		
 		//the function to set friend's data
 		public static function friendFilter($linkedin){
 			

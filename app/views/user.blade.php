@@ -14,6 +14,12 @@
 		<h1>About Me end</h1>
 	@endif
 	
+	@if (isset($eduArray))
+		<h1>Education start</h1>
+		<pre>{{var_dump($eduArray)}}</pre>
+		<h1>Education end</h1>
+	@endif
+	
 	@if (isset($friendArray))
 		<h1>Friend start</h1>
 		<pre>{{var_dump($friendArray)}}</pre>

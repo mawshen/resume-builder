@@ -19,11 +19,12 @@ define([], function() {
                     when('/opportunities', {
                         templateUrl: ''
                                 //controller: ''
-                    }).
-                    otherwise({
-                        redirectTo: '/preview',
-                        controller: 'PreviewController'
                     });
+					/*.
+                    otherwise({
+                        redirectTo: '/'
+                        //controller: 'PreviewController'
+                    });*/
         }]);
 
     app.run([function() {

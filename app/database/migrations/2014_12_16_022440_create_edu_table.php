@@ -12,7 +12,7 @@ class CreateEduTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('exp',function($table){
+		Schema::create('edu',function($table){
 			$table->integer('id')->unsigned();
 			$table->foreign('id')->references('id')->on('resume');
 			$table->string('schName')->nullable();
@@ -35,7 +35,7 @@ class CreateEduTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('exp');
+		Schema::drop('edu');
 	}
 
 }

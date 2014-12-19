@@ -7,13 +7,15 @@
 			
 			//initialize the about me fields
 			$aboutArray=array();
-			$dob = $mobileNo = $otherNo =$email = $address = $first_name = $last_name = null;
+			$dob = $mobileNo = $otherNo =$email = $address = $first_name = $last_name = $language = null;
 			
+			//part to set DOB
 			if(isset($linkedin->dateOfBirth)) {
 				$dob = $linkedin->dateOfBirth;
 				$dob = $dob->day.'/'.$dob->month.'/'.$dob->year;
 			}
 
+			//part to set mobile no and other no
 			if(isset($linkedin->phoneNumbers)) {
 				if ($linkedin->phoneNumbers->_total>0){
 					foreach($linkedin->phoneNumbers->values as $phone) {
@@ -26,26 +28,45 @@
 				}
 			}
 
+			//part to set email add
 			if(isset($linkedin->emailAddress)) {
 				$email = $linkedin->emailAddress;
 			}
 
+			//part to set home add
 			if(isset($linkedin->mainAddress)) {
 				$address = $linkedin->mainAddress;
 			}
 
+			//part to set first name
 			if(isset($linkedin->firstName)) {
 				$first_name = $linkedin->firstName;
 			}
 	
+			//part to set last name
 			if(isset($linkedin->lastName)) {
 				$last_name = $linkedin->lastName;
 			}
 
+			
+			//part to set language
+			if(isset($linkedin->languages)) {
+			
+				//initialize the language value
+				$language="";
+				
+				foreach($linkedin->languages->values as $lang) {
+					$language .= ",".$lang->language->name;
+				}
+				
+				$language = substr($language,1);
+
+			}
+			
 			//push into an array
 			array_push($aboutArray, array("firstName"=>$first_name, "lastName"=>$last_name
 									,"dob"=>$dob, "mobileNo"=>$mobileNo, "otherNo"=>$otherNo
-									, "email"=>$email, "address"=>$address)
+									, "email"=>$email, "address"=>$address, "lang"=>$language)
 			);
 
 			//return the about me

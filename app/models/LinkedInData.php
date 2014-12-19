@@ -118,6 +118,34 @@
 			return $eduArray;
 		}//end of function educationFilter
 		
+		//the function to set user's skill info
+		public static function skillFilter($linkedin){
+			
+			//initialize the skill fields
+			$skillArray=array();
+
+			if(isset($linkedin->skills->values)) {
+
+				foreach($linkedin->skills->values as $skill) {
+
+					//initialize the value to null
+					$skillName = null;
+
+					if(isset($skill->skill->name)) {
+						$skillName = $skill->skill->name;
+					}
+					
+					//push into an array
+					array_push($skillArray, array("name"=>$skillName));
+					
+				}//end of foreach loop to set the data
+				
+			}
+
+			//return the skill array
+			return $skillArray;
+		}//end of function skillFilter
+		
 		//the function to set user's experience info
 		public static function experienceFilter($linkedin){
 			

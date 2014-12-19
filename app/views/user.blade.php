@@ -26,6 +26,12 @@
 		<h1>Experience end</h1>
 	@endif
 	
+	@if (isset($skillArray))
+		<h1>Skill start</h1>
+		<pre>{{var_dump($skillArray)}}</pre>
+		<h1>Skill end</h1>
+	@endif
+	
 	@if (isset($friendArray))
 		<h1>Friend start</h1>
 		<pre>{{var_dump($friendArray)}}</pre>

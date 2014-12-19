@@ -50,7 +50,7 @@
 
 			//return the about me
 			return $aboutArray;
-		}
+		}//end of function aboutFilter
 		
 		//the function to set user's education info
 		public static function educationFilter($linkedin){
@@ -95,7 +95,7 @@
 
 			//return the education array
 			return $eduArray;
-		}
+		}//end of function educationFilter
 		
 		//the function to set user's experience info
 		public static function experienceFilter($linkedin){
@@ -105,26 +105,29 @@
 			
 			//this is the function to get specialization code and name from js api
 			function get_specialization($position){
+				
+				//codes to retrieve data from JS API
 				$app_key="myjslocalid";
 				$position=urlencode($position);
 				$url="http://api.sand.jobstreet.com:80/v/recommendations/specializations-roles-for-position-title?position_title=".$position.
 				"&api_key=".$app_key;
 				
+				//set the specialization by returned data
 				$specialization = file_get_contents($url);
+				
+				//if data not null, return the values
 				if ($specialization){
+					
 					//convert string to json
 					$specialization=json_decode($specialization);
-					print "<br>Specialization code is  ";
-					print ($specialization->data[0]->specialization->code);
-					print "<br>Specialization name is  ";
-					print ($specialization->data[0]->specialization->name);
 					
+					//return the value
 					return $specialization->data[0]->specialization;
 
 				}else{
 					return null;
 				}
-			}
+			}//end of function to get_specialization
 
 			if(isset($linkedin->positions)) {
 				foreach($linkedin->positions->values as $exp) {
@@ -139,14 +142,17 @@
 						$specialization=get_specialization($position);
 					}
 					$duration = $exp->startDate->month.'/'.$exp->startDate->year;
+					
 					if(isset($exp->endDate)) {
 						$duration .= ' - '.$exp->endDate->month.'/'.$exp->endDate->year;
 					} elseif(isset($exp->isCurrent)) {
 						$duration .= ' - Present';
 					}
+					
 					if(isset($exp->company)) {
 						$company = $exp->company->name;
 					}
+					
 					if(isset($linkedin->location)) {
 						$location = $linkedin->location->name;
 					}
@@ -166,12 +172,12 @@
 											, "company"=>$company, "duration"=>$duration, "location"=>$location
 											, "industry"=>$industry, "summary"=>$summary)
 					);
-				}
-			}
+				}//end of foreach loop to set the data
+			}//end of isset positions data
 
 			//return the experience array
 			return $expArray;
-		}
+		}//end of function experienceFilter
 		
 		//the function to set friend's data
 		public static function friendFilter($linkedin){
@@ -212,12 +218,13 @@
 											, "location"=>$workLocation, "url"=>$linkedInUrl , "picUrl"=>$picUrl)
 					);
 
-				}
+				}//end of foreach loop to set the data
 			}
 
 			//return the friend array made
 			return $friendArray;
-		}
+			
+		}//end of function friendFilter
 
-	}
+	}//end of class linkedInData
 ?>

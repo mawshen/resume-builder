@@ -182,7 +182,7 @@
 		//the function to set user's language info
 		public static function languageFilter($linkedin){
 			
-			//initialize the education fields
+			//initialize the language fields
 			$langArray=array();
 			
 			//part to set language
@@ -223,23 +223,22 @@
 					if(isset($edu->degree)) {
 						$qualification = $edu->degree;
 					}
-					if(isset($linkedin->location)) {
-						$universitylocation = $linkedin->location->name;
-					}
+
 					if(isset($edu->fieldOfStudy)) {
 						$fieldofstudy = $edu->fieldOfStudy;
 					}
 					if(isset($edu->notes)) {
 						$addinformation = $edu->notes;
 					}
-				}
+					
+					//push into an array
+					array_push($eduArray, array("university"=>$university, "gradMonth"=>get_month($gradMonth), "gradYear"=>$gradYear
+											, "qualification"=>$qualification, "universitylocation"=>$universitylocation
+											, "fieldofstudy"=>$fieldofstudy, "major"=>$major, "grade"=>"0.00", "addinformation"=>$addinformation)
+					);
 				
-				//push into an array
-				array_push($eduArray, array("university"=>$university, "gradMonth"=>get_month($gradMonth), "gradYear"=>$gradYear
-										, "qualification"=>$qualification, "universitylocation"=>$universitylocation
-										, "fieldofstudy"=>$fieldofstudy, "major"=>$major, "grade"=>"0.00", "addinformation"=>$addinformation)
-				);
-			
+				}
+
 			}
 
 			//return the education array
@@ -348,10 +347,6 @@
 					
 					if(isset($exp->company)) {
 						$company = $exp->company->name;
-					}
-					
-					if(isset($linkedin->location)) {
-						$location = $linkedin->location->name;
 					}
 					
 					if(isset( $exp->company->industry)) {

@@ -70,7 +70,7 @@
 					
 					//filter the data retrieved from linkedin 
 					$linkedInData = new linkedInData($data);
-		
+
 					//assign the values from the linkedInData instance
 					$friendJson = $linkedInData->get_friend();
 					$aboutJson = $linkedInData->get_about();

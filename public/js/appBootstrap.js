@@ -32,5 +32,7 @@ require.config({
 require(['angular', 'angularRoute', 'Controller/PreviewController', 'Services/expDirective', 'Services/eduDirective', 'Services/skillDirective', 'Services/langDirective', 'Services/addinfoDirective', 'Services/aboutmeDirective', 'ui-select2'], function(){
 
 	// Application has boostrapped and started
+	//alert("appBootstrap -> angular.bootstrap start");
 	angular.bootstrap(document.getElementsByTagName("body")[0], ['newResumeApp']);
+	//alert("appBootstrap -> angular.bootstrap end");
 });	

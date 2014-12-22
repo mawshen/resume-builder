@@ -4,8 +4,8 @@ define([], function() {
     app.config(['$routeProvider',
         function($routeProvider) {
             $routeProvider.
-                    when('/preview', {
-                        templateUrl: '/newresume/app/views/resume/preview.html',
+                    when('/', {
+                        //templateUrl: '/newresume/app/views/resume/preview.html',
                         controller: 'PreviewController'
                     }).
                     when('/download', {
@@ -19,12 +19,11 @@ define([], function() {
                     when('/opportunities', {
                         templateUrl: ''
                                 //controller: ''
-                    });
-					/*.
+                    }).
                     otherwise({
-                        redirectTo: '/'
-                        //controller: 'PreviewController'
-                    });*/
+                        redirectTo: '/',
+                        controller: 'PreviewController'
+                    });
         }]);
 
     app.run([function() {

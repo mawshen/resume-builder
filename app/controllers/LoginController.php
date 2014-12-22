@@ -2,6 +2,7 @@
 
 class LoginController extends \BaseController {
 
+	public $restful = true;
 	/**
 	 * Display a listing of the resource.
 	 *

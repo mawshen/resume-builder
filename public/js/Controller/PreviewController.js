@@ -21,8 +21,6 @@ define(['appModule'], function(app) {
         $rootScope.menuSwitch = true;
         $rootScope.doneSwitch = false;
 
-
-
         $scope.controlDirFunction = {
         };
 
@@ -35,9 +33,9 @@ define(['appModule'], function(app) {
         };
 
         $scope.xxyy = function(thisI) {
-            alert(thisI);
+            //alert(thisI);
             $rootScope.showMe = thisI;
-            alert($scope.showMe);
+            //alert($scope.showMe);
         };
         /**
          * @description:
@@ -464,6 +462,8 @@ define(['appModule'], function(app) {
          * JSON data for labels and Summary Section
          */
         $scope.resetJSON = function() {
+		
+			
             $scope.candidate = {
                 position: {
                     tag: 'Position',
@@ -662,8 +662,6 @@ define(['appModule'], function(app) {
                 }
             ];
 
-
-
             /**
              * @description:
              * JSON data for Education Section
@@ -820,6 +818,11 @@ define(['appModule'], function(app) {
 
         $scope.resetJSON();
 
+console.log( $scope.userAboutMe);
+console.log($scope.userAdditionalInfo);
+console.log($scope.userSkill);
+console.log($scope.userEdu);
+//alert("preview controller end");
 
     });
 

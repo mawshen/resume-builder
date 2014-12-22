@@ -10,29 +10,45 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+	Blade::setContentTags('<%', '%>');        // for variables and all things Blade
+    Blade::setEscapedContentTags('<%%', '%%>');   // for escaped data
+	
+	Route::get('preview', function()
+	{
 
-/*Route::get('/', function()
-{
-	return View::make('index');
-});*/
+		//assign variable from session
+		$friendJson = Session::get('friendJson');
+		$aboutJson = Session::get('aboutJson');
+		$langJson = Session::get('langJson');
+		$eduJson = Session::get('eduJson');
+		$expJson = Session::get('expJson');
+		$skillJson = Session::get('skillJson');
+		
+		return View::make('resume.preview')->with('friendJson',$friendJson)->with('aboutJson',$aboutJson)
+				->with('langJson',$langJson)->with('eduJson',$eduJson)->with('expJson',$expJson)
+				->with('skillJson',$skillJson);
+	});
 
 	Route::get('/', function()
 	{
-		$data = Session::get('data');
-		$friendArray = Session::get('friendArray');
-		$aboutArray = Session::get('aboutArray');
-		$eduArray = Session::get('eduArray');
-		$expArray = Session::get('expArray');
-		$skillArray = Session::get('skillArray');
-		return View::make('user')->with('data', $data)->with('friendArray',$friendArray)
-				->with('aboutArray',$aboutArray)->with('eduArray',$eduArray)->with('expArray',$expArray)
-				->with('skillArray',$skillArray);
-	});
 
-	//Route::get('login',array('as'=>'login', 'uses'=>'LoginController@login'));
+		//assign variable from session
+		$friendJson = Session::get('friendJson');
+		$aboutJson = Session::get('aboutJson');
+		$langJson = Session::get('langJson');
+		$eduJson = Session::get('eduJson');
+		$expJson = Session::get('expJson');
+		$skillJson = Session::get('skillJson');
+		
+		//make the view with the linked in data
+		return View::make('index')->with('friendJson',$friendJson)->with('aboutJson',$aboutJson)
+				->with('langJson',$langJson)->with('eduJson',$eduJson)->with('expJson',$expJson)
+				->with('skillJson',$skillJson);
+	});
 	
 	Route::get('login/linkedin', function()
 	{
+		
 		$provider = new Linkedin(Config::get('social.linkedin'));
 		if ( !Input::has('code')) {
 			// If we don't have an authorization code, get one
@@ -51,24 +67,30 @@
 					$context = stream_context_create(array('http' => array('method' => 'GET')));
 					$response = file_get_contents($url, false, $context);
 					$data = json_decode($response);
-
+					
 					//filter the data retrieved from linkedin 
-					$linkedInData = new linkedInData();
-					$friendArray = linkedInData::friendFilter($data);
-					$aboutArray = linkedInData::aboutFilter($data);
-					$eduArray = linkedInData::educationFilter($data);
-					$expArray = linkedInData::experienceFilter($data);
-					$skillArray = linkedInData::skillFilter($data);
-
-					return Redirect::to('/')->with('data',$data)
-					->with('friendArray',$friendArray)
-					->with('aboutArray',$aboutArray)
-					->with('eduArray',$eduArray)
-					->with('expArray',$expArray)
-					->with('skillArray',$skillArray);
+					$linkedInData = new linkedInData($data);
+		
+					//assign the values from the linkedInData instance
+					$friendJson = $linkedInData->get_friend();
+					$aboutJson = $linkedInData->get_about();
+					$langJson = $linkedInData->get_lang();
+					$eduJson = $linkedInData->get_edu();
+					$expJson = $linkedInData->get_exp();
+					$skillJson = $linkedInData->get_skill();
+					
+					
+					//redirect to landing page with the user's data
+					return Redirect::to('preview')
+						->with('friendJson',$friendJson)
+						->with('aboutJson',$aboutJson)
+						->with('langJson',$langJson)
+						->with('eduJson',$eduJson)
+						->with('expJson',$expJson)
+						->with('skillJson',$skillJson);
 					
 				} catch (Exception $e) {
-					return 'Unable to get user details';
+					return 'Unable to get user details '.$e ;
 				}
 
 			} catch (Exception $e) {

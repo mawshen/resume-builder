@@ -1,26 +1,142 @@
 <?php
+	
+	//function to return month in string 
+		function get_month($month)
+		{
+			if($month==12) 
+				return "Dec";
+			else if($month==11) 
+				return "Nov";
+			else if($month==10) 
+				return "Oct";
+			else if($month==9) 
+				return "Sept";
+			else if($month==8) 
+				return "Aug";
+			else if($month==7) 
+				return "Jul";
+			else if($month==6) 
+				return "Jun";
+			else if($month==5) 
+				return "May";
+			else if($month==4) 
+				return "Apr";
+			else if($month==3) 
+				return "Mar";
+			else if($month==2) 
+				return "Feb";
+			else if($month==1) 
+				return "Jan";
+			else
+				return null;
+		}
+		
 	//model to filter data after get returned data from linked-in
 	class linkedInData extends Eloquent{
+		
+		public $linkedInArray; 
+		public $aboutArray;
+		public $langArray;
+		public $eduArray;
+		public $skillArray;
+		public $expArray;
+		public $friendArray;
+		
+		public function __construct($linkedin){
+
+			//initialization
+			$this->linkedInArray = $aboutArray = $eduArray = $skillArray = $expArray = $friendArray = array();
+			
+			$this->aboutArray =$this->aboutFilter($linkedin);
+
+			$this->langArray =$this->languageFilter($linkedin);
+			
+			$this->eduArray =$this->educationFilter($linkedin);
+
+			$this->skillArray =$this->skillFilter($linkedin);
+
+			$this->expArray =$this->experienceFilter($linkedin);
+
+			$this->friendArray =$this->friendFilter($linkedin);
+
+			
+			//push into linkedinData array
+			array_push($this->linkedInArray, array("aboutMe"=>$this->aboutArray, "education"=>$this->eduArray
+									,"skill"=>$this->skillArray, "experience"=>$this->expArray, "friend"=>$this->friendArray)
+			);
+
+			return $this->linkedInArray;
+		}//end of the constructor
+		
+		//function to return user's personal info
+		public function get_about()
+		{
+			return json_encode($this->aboutArray);
+		}
+		
+		//function to return user's language info
+		public function get_lang()
+		{
+			return json_encode($this->langArray);
+		}
+		
+		//function to return user's education info
+		public function get_edu()
+		{
+			return json_encode($this->eduArray);
+		}
+		
+		//function to return user's experience info
+		public function get_exp()
+		{
+			return json_encode($this->expArray);
+		}
+		
+		//function to return user's skill info
+		public function get_skill()
+		{
+			return json_encode($this->skillArray);
+		}
+		//function to return user's friendList 
+		public function get_friend()
+		{
+			return json_encode($this->friendArray);
+		}
+		
 
 		//the function to set user's personal info
 		public static function aboutFilter($linkedin){
 			
 			//initialize the about me fields
 			$aboutArray=array();
-			$dob = $mobileNo = $otherNo =$email = $address = $first_name = $last_name = $language = null;
+			$dobDay = $dobMonth = $dobYear = $picUrl = $mobile  = $otherNo = $email = 
+			$gender = $firstName = $lastName = $identification = $identificationNo = null;
+			
+			//initialize for resume builder
+			$mobileCode="60";
+			$phoneCode= "";
+			$phoneArea = $phoneNo = $addressone = $addresstwo = $city = $postal = $state = "-";
+			$country = $nationality = "Malaysia";
 			
 			//part to set DOB
 			if(isset($linkedin->dateOfBirth)) {
-				$dob = $linkedin->dateOfBirth;
-				$dob = $dob->day.'/'.$dob->month.'/'.$dob->year;
-			}
 
+				$dobDay = $linkedin->dateOfBirth->day;
+				$dobMonth = $linkedin->dateOfBirth->month;
+				$dobYear = $linkedin->dateOfBirth->year;
+			}
+			
+			//part to set linked in profile pic
+			if(isset($linkedin->pictureUrl)) {
+				$picUrl=$linkedin->pictureUrl;
+			}
+			
 			//part to set mobile no and other no
 			if(isset($linkedin->phoneNumbers)) {
 				if ($linkedin->phoneNumbers->_total>0){
 					foreach($linkedin->phoneNumbers->values as $phone) {
 						if($phone->phoneType = 'mobile') {
-							$mobileNo = $phone->phoneNumber;
+							$mobile = $phone->phoneNumber;
 						} else {
 							$otherNo = $phone->phoneNumber;
 						}
@@ -35,43 +151,54 @@
 
 			//part to set home add
 			if(isset($linkedin->mainAddress)) {
-				$address = $linkedin->mainAddress;
+				$addressone = $linkedin->mainAddress;
 			}
 
 			//part to set first name
 			if(isset($linkedin->firstName)) {
-				$first_name = $linkedin->firstName;
+				$firstName = $linkedin->firstName;
 			}
 	
 			//part to set last name
 			if(isset($linkedin->lastName)) {
-				$last_name = $linkedin->lastName;
-			}
-
-			
-			//part to set language
-			if(isset($linkedin->languages)) {
-			
-				//initialize the language value
-				$language="";
-				
-				foreach($linkedin->languages->values as $lang) {
-					$language .= ",".$lang->language->name;
-				}
-				
-				$language = substr($language,1);
-
+				$lastName = $linkedin->lastName;
 			}
 			
 			//push into an array
-			array_push($aboutArray, array("firstName"=>$first_name, "lastName"=>$last_name
-									,"dob"=>$dob, "mobileNo"=>$mobileNo, "otherNo"=>$otherNo
-									, "email"=>$email, "address"=>$address, "lang"=>$language)
+			array_push($aboutArray, array("firstname"=>$firstName, "lastname"=>$lastName, "dobDay"=>$dobDay
+									, "dobMonth"=>get_month($dobMonth), "dobYear"=>$dobYear, "gender"=>$gender
+									, "picUrl"=>$picUrl, "mobileCode"=>$mobileCode, "mobile"=>$mobile, "otherNo"=>$otherNo
+									, "phoneCode"=>$phoneCode, "phoneArea"=>$phoneArea, "phoneNo"=>$phoneNo
+									, "email"=>$email, "addressone"=>$addressone, "addresstwo"=>$addresstwo
+									, "city"=>$city, "postal"=>$postal, "state"=>$state, "country"=>$country
+									, "nationality"=>$nationality, "identification"=>$identification, "identificationNo"=>$identificationNo)
 			);
 
 			//return the about me
 			return $aboutArray;
 		}//end of function aboutFilter
+		
+		
+		//the function to set user's language info
+		public static function languageFilter($linkedin){
+			
+			//initialize the education fields
+			$langArray=array();
+			
+			//part to set language
+			if(isset($linkedin->languages)) {
+			
+				foreach($linkedin->languages->values as $lang) {
+					//push into an array
+					array_push($langArray, array("name"=>$lang->language->name, "primary"=>"", "spoken"=>"1"
+									, "written"=>"1", "cert"=>"-", "result"=>""));
+				}
+			}
+
+			//return the language array
+			return $langArray;
+		}//end of function languageFilter
+		
 		
 		//the function to set user's education info
 		public static function educationFilter($linkedin){
@@ -79,40 +206,41 @@
 			//initialize the education fields
 			$eduArray=array();
 			
-			
 			if(isset($linkedin->educations)) {
 			
 				foreach($linkedin->educations->values as $edu) {
 					
 					//initialize the education fields
-					$schName =  $end_date = $qualification = $location = $field_of_study = $desc = null;
+					$university =  $gradMonth = $gradYear = $qualification = $universitylocation = $fieldofstudy = $major = $grade = $addinformation = null;
 					
 					if(isset($edu->schoolName)) {
-						$schName = $edu->schoolName;
+						$university = $edu->schoolName;
 					}
 					if(isset($edu->endDate)) {
-						$end_date = $edu->endDate->year;
+						
+						$gradYear = $edu->endDate->year;
 					}
 					if(isset($edu->degree)) {
 						$qualification = $edu->degree;
 					}
 					if(isset($linkedin->location)) {
-						$location = $linkedin->location->name;
+						$universitylocation = $linkedin->location->name;
 					}
 					if(isset($edu->fieldOfStudy)) {
-						$field_of_study = $edu->fieldOfStudy;
+						$fieldofstudy = $edu->fieldOfStudy;
 					}
 					if(isset($edu->notes)) {
-						$desc = $edu->notes;
+						$addinformation = $edu->notes;
 					}
 				}
+				
+				//push into an array
+				array_push($eduArray, array("university"=>$university, "gradMonth"=>get_month($gradMonth), "gradYear"=>$gradYear
+										, "qualification"=>$qualification, "universitylocation"=>$universitylocation
+										, "fieldofstudy"=>$fieldofstudy, "major"=>$major, "grade"=>"0.00", "addinformation"=>$addinformation)
+				);
+			
 			}
-
-			//push into an array
-			array_push($eduArray, array("schName"=>$schName, "end_date"=>$end_date
-									,"qualification"=>$qualification, "location"=>$location
-									, "field_of_study"=>$field_of_study, "desc"=>$desc)
-			);
 
 			//return the education array
 			return $eduArray;
@@ -136,7 +264,7 @@
 					}
 					
 					//push into an array
-					array_push($skillArray, array("name"=>$skillName));
+					array_push($skillArray, array("name"=>$skillName, "pro"=>"Beginner"));
 					
 				}//end of foreach loop to set the data
 				
@@ -181,8 +309,10 @@
 			if(isset($linkedin->positions)) {
 				foreach($linkedin->positions->values as $exp) {
 					
-					//initialize the experience year
-					$position = $company = $location = $duration = $industry = $summary = null;
+					//initialize the experience fields
+					$position = $company = $location = $startMonth = $startYear = $endMonth = $endYear = $duration = $industry = $achievement =
+					$pLevel = $salary = null;
+					$currency = "MYR";
 					
 					if(isset($exp->title)) {
 						$position = $exp->title;
@@ -190,13 +320,31 @@
 						//tommy added here to retrieve specialization code and name from js api
 						$specialization=get_specialization($position);
 					}
-					$duration = $exp->startDate->month.'/'.$exp->startDate->year;
+					if(isset($exp->endDate)) {
+						$startMonth = $exp->startDate->month;
+						$startYear = $exp->startDate->year;
+					}else{
+						//temporary put like this
+						$startMonth = 12;
+						$startYear = 2014;
+					}
 					
 					if(isset($exp->endDate)) {
-						$duration .= ' - '.$exp->endDate->month.'/'.$exp->endDate->year;
+						
+						$endMonth =  $exp->endDate->month;
+						$endYear = $exp->endDate->year;
+						
+						
 					} elseif(isset($exp->isCurrent)) {
-						$duration .= ' - Present';
+						//please use current time function to get current month and year later
+						$endMonth =  12;
+						$endYear = 2014;
 					}
+					
+					//calculate duration month
+					$duration = ($endYear*12+$endMonth)-($startYear*12+$startMonth);
+					if ($duration==0)
+						$duration="N/A";
 					
 					if(isset($exp->company)) {
 						$company = $exp->company->name;
@@ -213,13 +361,14 @@
 					}
 				
 					if(isset($exp->summary)) {
-						$summary = $exp->summary;
+						$achievement = $exp->summary;
 					}
 					
 					//push into an array
-					array_push($expArray, array("position"=>$position, "specialization"=>$specialization
-											, "company"=>$company, "duration"=>$duration, "location"=>$location
-											, "industry"=>$industry, "summary"=>$summary)
+					array_push($expArray, array("position"=>$position, "company"=>$company, "startMonth"=>get_month($startMonth) , "startYear"=>$startYear 
+											, "endMonth"=>get_month($endMonth) , "endYear"=>$endYear , "duration"=>$duration
+											,"specialization"=>$specialization, "location"=>$location, "industry"=>$industry
+											, "pLevel"=>$pLevel, "currency"=>"", "salaray"=>$salary, "achievement"=>$achievement)
 					);
 				}//end of foreach loop to set the data
 			}//end of isset positions data

@@ -14,11 +14,7 @@
 	       
 	      </a>
 	      <div class="media-body">
-	        <h4 class="media-heading">Name: </h4>
-				<h1>About Me json start</h1>
-				<pre><%var_dump($aboutJson)%></pre>
-				<h1>About Me json end</h1>
-
+			<h1>Logged In</h1>
 	      </div>
 	    </div>
 	@else
@@ -29,9 +25,15 @@
 		    <p>Created by Tommy Yeap and Derek</p>
 			<br>
 		    <p class="text-center">
-		      <a class="btn btn-lg btn-info" href="<%url('login/linkedin')%>"><i class="icon-linkedin"></i> | Login with LinkedIn</a>
+		      <a class="btn btn-lg btn-info" href=" <%url('login/linkedin')%> "><i class="icon-linkedin"></i> | Login with LinkedIn</a>
 		    </p>
 		</div>
+	@endif
+	
+	@if (isset($candidateJson))
+		<h1>The summary start</h1>
+		<pre><%var_dump($candidateJson)%></pre>
+		<h1>The summary end</h1>
 	@endif
 	
 	@if (isset($aboutJson))

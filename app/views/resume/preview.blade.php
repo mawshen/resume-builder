@@ -5,7 +5,9 @@
 
 	<!--Fluid Content!-->
 
-<div class="container containfluid preview-resume-panel" ng-controller="PreviewController">
+<div class="container containfluid preview-resume-panel" ng-init='candidate=<% $candidateJson %>'>
+
+{{candidate}}
     <!--Summary Info -->
     <div class="col-xs-12 summary-section" ng-init='user=<% $aboutJson %>; salary="N/A"'>
         <!-- Name + Position-->
@@ -63,7 +65,7 @@
                         <div class="col-xs-12 col-sm-9 col-md-9">
                             <ul class="no-listyle">
                                 <li>{{candidate.university.value}}</li>
-                                <li>{{candidate.qualification.value}}</li>
+                                <li>{{candidate.qualification.value}} of {{candidate.fieldofstudy.value}}</li>
                             </ul>
                         </div>
                     </div>
@@ -151,7 +153,7 @@
         <div ng-repeat="user in userExp| orderBy:'startYear':true">
             <div class="col-xs-12 col-sm-12 col-md-12 resume-detail-item" ng-class="{ 'hideMe' : hideExp == $index, 'showMe' : !expEditFormSwitch }">
                 <div class="col-md-3 exp-duration visible-sm visible-md visible-lg">
-                    <span>{{user.startMonth}} {{user.startYear}} - {{user.endMonth}} {{user.endYear}} <br/> ({{user.duration}} months)</span>
+                    <span>{{user.startMonth}} {{user.startYear}} - {{user.endMonth}} {{user.endYear}} <br/> {{user.duration}}</span>
                 </div>
                 <div class="col-xs-10 col-md-7">
                     <div class="content-alignment movePara">
@@ -253,12 +255,12 @@
 
 
     <!--Skills Info-->
-    <div class="col-xs-12 no-paddingleft no-paddingright resume-skills-detail">
+    <div class="col-xs-12 no-paddingleft no-paddingright resume-skills-detail" ng-init='userSkill=<% $skillJson %>'>
         <hr>
 
         <div class="col-xs-12 col-sm-12 col-md-12 resume-section">
             <span class="icon-math-compass x2"></span>
-            <span class="skill-title">{{candidate.skills.tag}}</span>
+            <span class="skill-title">Skills</span>
             <span ng-show="editSwitch == true" id="editButtons"><a class="add-button" href="" ng-click='controlDirFunction.getUserSkill()'><span class="icon-edit"></span></a></span>
         </div>
 
@@ -407,7 +409,7 @@
     <!--Languages Ends here-->
 
     <!--Additional Info-->
-    <div class="col-xs-12 no-paddingleft no-paddingright resume-addInfo-detail">
+    <div class="col-xs-12 no-paddingleft no-paddingright resume-addInfo-detail" ng-init='userAboutMe=<% $aboutJson %>'>
         <hr/>
         <div class="col-xs-12 col-sm-12 col-md-12 resume-section">
             <span class="icon-menu x2"></span>

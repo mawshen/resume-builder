@@ -462,134 +462,8 @@ define(['appModule'], function(app) {
          * JSON data for labels and Summary Section
          */
         $scope.resetJSON = function() {
-		
-			
-            $scope.candidate = {
-                position: {
-                    tag: 'Position',
-                    label: 'Position',
-                    value: 'Manager, Instructional Design'
-                },
-                company: {
-                    tag: 'Company',
-                    label: 'Current Company',
-                    value: 'Scicom (MSC) Berhad'
-                },
-                pposition: {
-                    tag: 'Previous',
-                    label: 'Previous Position',
-                    value: 'Consultant (Interactive Multimedia/SME)'
-                },
-                pcompany: {
-                    tag: 'Previous',
-                    label: 'Previous Company',
-                    value: 'Nadi-Ayu Technologies Sdn Bhd'
-                },
-                experience: {
-                    tag: 'Experience',
-                    label: 'Experience',
-                    value: '2 Years'
-                },
-                university: {
-                    tag: 'Education',
-                    label: 'University',
-                    value: 'Universiti Kebangsaan Malaysia (UKM)'
-                },
-                qualification: {
-                    tag: 'Education',
-                    label: 'Qualification',
-                    value: 'Bachelor Degree (Ijazah Sarjana Muda)'
-                },
-                fieldofstudy: {
-                    label: 'Field of Study',
-                    value: 'Finance/Accountancy/Banking'
-                },
-                skills: {
-                    tag: 'Skills',
-                    label: '',
-                    value: ''
-                },
-                beginner: {
-                    tag: 'Skills',
-                    label: 'Beginner',
-                    value: ''
-                },
-                intermediate: {
-                    tag: 'Skills',
-                    label: 'Intermediate',
-                    value: ''
-                },
-                advanced: {
-                    tag: 'Skills',
-                    label: 'Advanced',
-                    value: ''
-                },
-                language: {
-                    tag: 'Languages',
-                    label: '',
-                    value: ''
-                },
-                addinformation: {
-                    tag: 'Additional Information',
-                    label: '',
-                    value: ''
-                },
-                salary: {
-                    tag: 'Additional Information',
-                    label: 'Expected Salary',
-                    value: ''
-                },
-                workLocation: {
-                    tag: 'Additional Information',
-                    label: 'Preferred Work Locations',
-                    value: ''
-                },
-                otherinformation: {
-                    tag: 'Additional Information',
-                    label: 'Other Information',
-                    value: ''
-                },
-                about: {
-                    tag: 'About Me',
-                    label: 'Telephone Number',
-                    value: '(+84) 01-5629312'
-                },
-                firstname: {
-                    tag: 'Name',
-                    label: 'First Name',
-                    value: 'Ivy'
-                },
-                lastname: {
-                    tag: 'Name',
-                    label: 'Last Name',
-                    value: 'Ong'
-                },
-                gender: {
-                    tag: 'Name',
-                    label: 'Gender',
-                    value: ''
-                },
-                age: {
-                    tag: 'About Me',
-                    label: 'Age',
-                    value: '30 Years Old'
-                },
-                email: {
-                    tag: 'About Me',
-                    label: 'Email',
-                    value: 'test@test.com'
-                },
-                nationality: {
-                    tag: 'Nationality',
-                    label: 'Nationality',
-                    value: 'Malaysia'
-                },
-                mylocation: {
-                    tag: 'About Me',
-                    label: 'Address',
-                    value: 'Petaling, Jaya'
-                }
-            };
+
+            
 
             /**
              * @description:
@@ -776,12 +650,12 @@ define(['appModule'], function(app) {
             $scope.userAdditionalInfo = [
                 {
                     expectedCurrency: 'MYR',
-                    expectedSalary: '15,000',
-                    preferredWorkLocationOne: 'Kuala Lumpur',
-                    preferredWorkLocationTwo: 'Penang',
+                    expectedSalary: 0.00,
+                    preferredWorkLocationOne: "default",
+                    preferredWorkLocationTwo: "default",
                     preferredWorkLocationThree: 'Anywhere in Malaysia',
-                    workingOverSea: 'Yes',
-                    otherInformation: 'CAREER OBJECTIVE:<br/>To contribute positively to Company growth, sustainability and profitability while enriching personal career exposures and experiences. My goal is to continue my career pursuit in the lines of Project Management and Communications & Content Planning and Development.<br/><br/>PERSONAL ATTRIBUTES:<br/>Charismatic and responsible when leading a group/team.<br/>Strong analytic and diagnostic skills.<br/>Able to work independently or in a group/team.'
+                    workingOverSea: null,
+                    otherInformation: null
                 }
             ];
 
@@ -814,6 +688,138 @@ define(['appModule'], function(app) {
                     identificationNo: '880808016998'
                 }
             ];
+			
+			//get date for calculate age
+			var today = new Date();
+            var yyyy = today.getFullYear();
+			
+			$scope.candidate = {
+                position: {
+                    tag: 'Position',
+                    label: 'Position',
+                    value: $scope.userExp[0].position
+                },
+                company: {
+                    tag: 'Company',
+                    label: 'Current Company',
+                    value: $scope.userExp[0].company
+                },
+                pposition: {
+                    tag: 'Previous',
+                    label: 'Previous Position',
+                    value: $scope.userExp[1].position
+                },
+                pcompany: {
+                    tag: 'Previous',
+                    label: 'Previous Company',
+                    value: $scope.userExp[1].company
+                },
+                experience: {
+                    tag: 'Experience',
+                    label: 'Experience',
+                    value: (yyyy-$scope.userExp[0].startYear)+" Year(s)"
+                },
+                university: {
+                    tag: 'Education',
+                    label: 'University',
+                    value: $scope.userEdu[0].university
+                },
+                qualification: {
+                    tag: 'Education',
+                    label: 'Qualification',
+                    value: $scope.userEdu[0].qualification
+                },
+                fieldofstudy: {
+                    label: 'Field of Study',
+                    value: $scope.userEdu[0].fieldofstudy
+                },
+                skills: {
+                    tag: 'Skills',
+                    label: '',
+                    value: ''
+                },
+                beginner: {
+                    tag: 'Skills',
+                    label: 'Beginner',
+                    value: ''
+                },
+                intermediate: {
+                    tag: 'Skills',
+                    label: 'Intermediate',
+                    value: ''
+                },
+                advanced: {
+                    tag: 'Skills',
+                    label: 'Advanced',
+                    value: ''
+                },
+                language: {
+                    tag: 'Languages',
+                    label: '',
+                    value: ''
+                },
+                addinformation: {
+                    tag: 'Additional Information',
+                    label: '',
+                    value: ''
+                },
+                salary: {
+                    tag: 'Additional Information',
+                    label: 'Expected Salary',
+                    value: ''
+                },
+                workLocation: {
+                    tag: 'Additional Information',
+                    label: 'Preferred Work Locations',
+                    value: ''
+                },
+                otherinformation: {
+                    tag: 'Additional Information',
+                    label: 'Other Information',
+                    value: ''
+                },
+                about: {
+                    tag: 'About Me',
+                    label: 'Telephone Number',
+                    value: "(+" + $scope.userAboutMe[0].mobileCode+") " + $scope.userAboutMe[0].mobile
+                },
+                firstname: {
+                    tag: 'Name',
+                    label: 'First Name',
+                    value: $scope.userAboutMe[0].firstname
+                },
+                lastname: {
+                    tag: 'Name',
+                    label: 'Last Name',
+                    value: $scope.userAboutMe[0].lastname
+                },
+                gender: {
+                    tag: 'Name',
+                    label: 'Gender',
+                    value: $scope.userAboutMe[0].gender
+                },
+                age: {
+                    tag: 'About Me',
+                    label: 'Age',
+                    value: (yyyy-$scope.userAboutMe[0].dobYear)+ " Years Old"
+                },
+                email: {
+                    tag: 'About Me',
+                    label: 'Email',
+                    value: $scope.userAboutMe[0].email
+                },
+                nationality: {
+                    tag: 'Nationality',
+                    label: 'Nationality',
+                    value: $scope.userAboutMe[0].nationality
+                },
+                mylocation: {
+                    tag: 'About Me',
+                    label: 'Address',
+                    value: $scope.userAboutMe[0].state
+                }
+            };
+			
         };
 
         $scope.resetJSON();

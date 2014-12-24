@@ -23,10 +23,11 @@
 		$eduJson = Session::get('eduJson');
 		$expJson = Session::get('expJson');
 		$skillJson = Session::get('skillJson');
+		$candidateJson = Session::get('candidateJson');
 		
 		return View::make('resume.preview')->with('friendJson',$friendJson)->with('aboutJson',$aboutJson)
 				->with('langJson',$langJson)->with('eduJson',$eduJson)->with('expJson',$expJson)
-				->with('skillJson',$skillJson);
+				->with('skillJson',$skillJson)->with('candidateJson',$candidateJson);
 	});
 
 	Route::get('/', function()
@@ -39,11 +40,12 @@
 		$eduJson = Session::get('eduJson');
 		$expJson = Session::get('expJson');
 		$skillJson = Session::get('skillJson');
+		$candidateJson = Session::get('candidateJson');
 		
 		//make the view with the linked in data
 		return View::make('index')->with('friendJson',$friendJson)->with('aboutJson',$aboutJson)
 				->with('langJson',$langJson)->with('eduJson',$eduJson)->with('expJson',$expJson)
-				->with('skillJson',$skillJson);
+				->with('skillJson',$skillJson)->with('candidateJson',$candidateJson);
 	});
 	
 	Route::get('login/linkedin', function()
@@ -68,6 +70,10 @@
 					$response = file_get_contents($url, false, $context);
 					$data = json_decode($response);
 					
+					//var_dump($data);
+					//die();
+
+
 					//filter the data retrieved from linkedin 
 					$linkedInData = new linkedInData($data);
 
@@ -77,8 +83,8 @@
 					$langJson = $linkedInData->get_lang();
 					$eduJson = $linkedInData->get_edu();
 					$expJson = $linkedInData->get_exp();
+					$candidateJson = $linkedInData->get_candidate();
 					$skillJson = $linkedInData->get_skill();
-					
 					
 					//redirect to landing page with the user's data
 					return Redirect::to('preview')
@@ -87,7 +93,8 @@
 						->with('langJson',$langJson)
 						->with('eduJson',$eduJson)
 						->with('expJson',$expJson)
-						->with('skillJson',$skillJson);
+						->with('skillJson',$skillJson)
+						->with('candidateJson',$candidateJson);
 					
 				} catch (Exception $e) {
 					return 'Unable to get user details '.$e ;

@@ -1,3 +1,6 @@
+## Resume Builder by import Linked In Profile
+The concept is import the linked in fields and put into JobStreet Resume
+
 ## Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)

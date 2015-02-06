@@ -188,7 +188,7 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
-		'Linkedin'        	=> 'League\OAuth2\Client\Provider\Linkedin',
+		'Linkedin'        	=> 'League\OAuth2\Client\Provider\LinkedIn',
 
 	),
 
